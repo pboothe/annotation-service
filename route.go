@@ -58,6 +58,8 @@ func annotate(w http.ResponseWriter, r *http.Request) {
 // validates request syntax
 // parses request and returns parameters
 func validate(w http.ResponseWriter, r *http.Request) (s string, num time.Time, err error) {
+
+	//change metrics to package
 	timerStart := time.Now()
 	defer metrics_requestTimes.Observe(float64(time.Since(timerStart).Nanoseconds()))
 

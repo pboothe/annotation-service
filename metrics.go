@@ -9,6 +9,8 @@ import (
 
 //These vars are the prometheus metrics
 var (
+
+	//TODO: issue #3 change metrics to a package
 	metrics_activeRequests = prometheus.NewGauge(prometheus.GaugeOpts{
 		Name: "annotator_Running_Annotation_Requests_Count",
 		Help: "The current number of unfulfilled annotation service requests.",
