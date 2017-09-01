@@ -33,7 +33,7 @@ func SearchList(list []parser.IPNode, ipLookUp string) (parser.IPNode, error) {
 }
 
 // Returns a parser.IPNode with the smallet range that includes the provided IP address
-func SearchList1(list []parser.IPNode, ipLookUp string, index int) (parser.IPNode, error) {
+func searchLinear(list []parser.IPNode, ipLookUp string, index int) (parser.IPNode, error) {
 	inRange := false
 	var lastNode parser.IPNode
 	userIP := net.ParseIP(ipLookUp)
@@ -61,19 +61,16 @@ func SearchBinary(list []parser.IPNode,ipLookUp string) (p parser.IPNode, e erro
 	end := len(list) -1
 
 	userIP := net.ParseIP(ipLookUp)
-	for start < end {
+	for start <= end {
 		median := (start + end)/2
 		//in range 
 		if bytes.Compare(userIP,list[median].IPAddressLow) >= 0 && bytes.Compare(userIP, list[median].IPAddressHigh) <= 0 {
-			log.Println("in it")
-			return SearchList1(list, ipLookUp, median) 
+			return searchLinear(list, ipLookUp, median) 
 		}
 		//too low 
 		if bytes.Compare(userIP,list[median].IPAddressLow) > 0 {
-			log.Println("too low") 
 			start = median + 1
 		} else {
-			log.Println("too high") 
 			end = median - 1 
 		}
 	}
